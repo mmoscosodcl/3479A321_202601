@@ -20,17 +20,13 @@ class MyApp extends StatelessWidget {
  Widget build(BuildContext context) {
    return MaterialApp(
      title: 'Buscaminas',
-     //theme: ThemeData(primarySwatch: Colors.blue),
       theme: ThemeData(
-        // colorScheme: Es el estándar moderno en Material 3 para paletas de colores
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurple, // Color base, Flutter calcula el resto
+          seedColor: Colors.deepPurple, 
           primary: Colors.deepPurple,
-          secondary: Colors.amber,
-          outline: Colors.deepPurple[700]!, // Color para bordes y detalles
+          secondary: const Color.fromARGB(255, 8, 252, 0)
         ),
         scaffoldBackgroundColor: const Color.fromARGB(255, 245, 75, 169), // Fondo por defecto de todas las pantallas
-        // Centralizamos la tipografía general
         textTheme: const TextTheme(
           bodyMedium: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
         ),
