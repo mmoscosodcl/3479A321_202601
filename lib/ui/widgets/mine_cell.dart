@@ -10,15 +10,19 @@ class MineCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final theme = Theme.of(context);
+
+    
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey[400],
-        border: Border.all(color: Colors.grey[600]!, width: 1.5),
+        color: theme.primaryColor, // Color de fondo suave
+        border: Border.all(color: theme.colorScheme.outline, width: 1.5),
       ),
       child: Center(    
         child: Text(
           '$index', // Interpolación: inyecta el valor de la variable en el texto
-          style: const TextStyle(color: Colors.black26, fontSize: 10),
+          style: TextStyle(color: theme.textTheme.bodyMedium?.color ?? Colors.black26, fontSize: 10),
         ), // Aquí se mostrarán las minas o números
       ),
     );

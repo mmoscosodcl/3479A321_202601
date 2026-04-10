@@ -9,7 +9,7 @@ void main() {
   logger.d('Iniciando la aplicación de Buscaminas'); // Debug
   logger.i('Iniciando la aplicación de Buscaminas'); // Info
   logger.w('Iniciando la aplicación de Buscaminas'); // Warning
-  logger.e('Iniciando la aplicación de Buscaminas'); // Error
+  //logger.e('Iniciando la aplicación de Buscaminas'); // Error
   runApp(const MyApp());
 }
 
@@ -27,8 +27,9 @@ class MyApp extends StatelessWidget {
           seedColor: Colors.deepPurple, // Color base, Flutter calcula el resto
           primary: Colors.deepPurple,
           secondary: Colors.amber,
+          outline: Colors.deepPurple[700]!, // Color para bordes y detalles
         ),
-        scaffoldBackgroundColor: Colors.grey[100], // Fondo por defecto de todas las pantallas
+        scaffoldBackgroundColor: const Color.fromARGB(255, 245, 75, 169), // Fondo por defecto de todas las pantallas
         // Centralizamos la tipografía general
         textTheme: const TextTheme(
           bodyMedium: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
