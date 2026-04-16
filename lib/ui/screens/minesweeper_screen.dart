@@ -38,18 +38,11 @@ class MinesweeperScreen extends StatelessWidget {
       actions: [
         IconButton(
           icon: const Icon(Icons.person_outline),
-          
-          onPressed: () {
-            // Aquí podrías navegar a una pantalla de "Acerca de"
-            Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutScreen()));
-          },
+          onPressed: () => Navigator.pushNamed(context, '/about'),
         ),
         IconButton(
           icon: const Icon(Icons.menu_book_outlined),
-          onPressed: () {
-            // Aquí podrías navegar a una pantalla de "Acerca de"
-            Navigator.push(context, MaterialPageRoute(builder: (_) => const MenuScreen()));
-          },
+          onPressed: () => Navigator.pushNamed(context, '/menu'),
         ),
         IconButton(
           icon: const Icon(Icons.refresh),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:laboratorois/ui/screens/about.dart';
 import 'package:laboratorois/ui/screens/history_screen.dart';
 import 'package:laboratorois/ui/screens/menu_screen.dart';
 import 'package:laboratorois/ui/screens/minesweeper_screen.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         '/menu': (context) => const MenuScreen(),
         '/game': (context) => const MinesweeperScreen(),
         '/history': (context) => const HistoryScreen(),
+        '/about': (context) => const AboutScreen(),
       },
    );
  }
