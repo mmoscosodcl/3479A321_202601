@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:laboratorois/ui/screens/about.dart';
+import 'package:laboratorois/ui/screens/menu_screen.dart';
 import 'package:laboratorois/ui/widgets/mine_cell.dart';
 
 class MinesweeperScreen extends StatelessWidget {
@@ -41,6 +42,23 @@ class MinesweeperScreen extends StatelessWidget {
           onPressed: () {
             // Aquí podrías navegar a una pantalla de "Acerca de"
             Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutScreen()));
+          },
+        ),
+        IconButton(
+          icon: const Icon(Icons.menu_book_outlined),
+          onPressed: () {
+            // Aquí podrías navegar a una pantalla de "Acerca de"
+            Navigator.push(context, MaterialPageRoute(builder: (_) => const MenuScreen()));
+          },
+        ),
+        IconButton(
+          icon: const Icon(Icons.refresh),
+          onPressed: () {
+            // Aquí podrías implementar la lógica para reiniciar el juego
+            // Por ahora, solo muestra un mensaje
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Reiniciar el juego (funcionalidad pendiente)')),
+            );
           },
         ),
       ],),
