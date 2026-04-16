@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:laboratorois/ui/screens/history_screen.dart';
+import 'package:laboratorois/ui/screens/menu_screen.dart';
 import 'package:laboratorois/ui/screens/minesweeper_screen.dart';
 import 'package:logger/logger.dart';
 
@@ -32,7 +34,13 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-     home: const MinesweeperScreen(), // Apuntamos a nuestra nueva pantalla
+      initialRoute: '/menu', 
+      // Mapa centralizado de Rutas Nombradas
+      routes: {
+        '/menu': (context) => const MenuScreen(),
+        '/game': (context) => const MinesweeperScreen(),
+        '/history': (context) => const HistoryScreen(),
+      },
    );
  }
 }
