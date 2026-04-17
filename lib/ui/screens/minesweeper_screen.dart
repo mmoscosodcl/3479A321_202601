@@ -33,6 +33,15 @@ class MinesweeperScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+    // 2. Definimos valores por defecto (Fallback) en caso de que lleguen nulos
+    final String difficulty = args?['difficulty'] ?? 'Desconocida';
+    final int gridSize = args?['gridSize'] ?? 8; // Útil para redimensionar el tablero más adelante
+
+
+
     return Scaffold(
       appBar: AppBar(title: const Text('Buscaminas'),
       actions: [
@@ -81,6 +90,12 @@ class MinesweeperScreen extends StatelessWidget {
             // Área de Juego
             Expanded( // Expande el tablero para llenar la pantalla
               child: _gameBoard(),
+            ),
+            SizedBox(height: 10), // Espacio inferior
+            Center(
+              child: Text('Dificultad: $difficulty | Tamaño: ${gridSize}x$gridSize', 
+                style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Colors.black54),
+              ),
             ),
           ],
         ),

@@ -14,7 +14,11 @@ class MenuScreen extends StatelessWidget {
             const Text('Pantalla de Menú'),
             // Botones temporales solo para validar la plomería
             ElevatedButton(
-              onPressed: () => Navigator.pushNamed(context, '/game'),
+              onPressed: () => Navigator.pushNamed(
+                  context, 
+                  '/game', 
+                  arguments: {'difficulty': 'Facil', 'gridSize': 8},
+                ),
               child: const Text('Test -> Ir a Juego'),
             ),
             ElevatedButton(
