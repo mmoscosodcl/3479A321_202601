@@ -3,56 +3,16 @@ import 'package:laboratorois/models/cell_model.dart';
 import 'package:laboratorois/ui/screens/about.dart';
 import 'package:laboratorois/ui/screens/menu_screen.dart';
 import 'package:laboratorois/ui/widgets/mine_cell.dart';
+import 'package:laboratorois/viewmodels/game_viewmodel.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 
-class MinesweeperScreen extends StatefulWidget {
- const MinesweeperScreen({Key? key}) : super(key: key);
-
-  @override
-  State<MinesweeperScreen> createState() => _MinesweeperScreenState();
-}
-
-class _MinesweeperScreenState extends State<MinesweeperScreen> {
-  late List<CellModel> _cells;
-  final logger = Logger();
-
-  @override
-  void initState() {
-    super.initState();
-    // 1. Inicializamos el estado del tablero
-    _cells = List.generate(64, (i) => CellModel(index: i));
-    logger.i('Lifecycle: initState() - Estado inicializado.');
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    logger.i('Lifecycle: didChangeDependencies() - Contexto listo o dependencias cambiadas.');
-  }
-
-  // 3. ACTUALIZACIÓN: Se llama cada vez que el widget padre envía nuevos parámetros.
-  @override
-  void didUpdateWidget(covariant MinesweeperScreen oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    logger.w('Lifecycle: didUpdateWidget() - La configuración del widget ha cambiado.');
-  }
-
-  // 4. DESTRUCCIÓN: Se llama cuando el widget se elimina permanentemente (ej. al hacer Pop).
-  @override
-  void dispose() {
-    logger.e('Lifecycle: dispose() - El estado se destruye. Liberando memoria.');
-    super.dispose();
-  }
-
-  // 2. Esta es la función que pasaremos al hijo (Prop Drilling)
-  void _onCellTapped(int index) {
-    setState(() {
-      _cells[index].isRevealed = true; // Actualizamos el dato
-    });
-  }
+class MinesweeperScreen extends StatelessWidget {
+ MinesweeperScreen({super.key});
+ final logger = Logger();
 
 
-  Widget _gameBoard() {
+  Widget _gameBoard(GameViewModel viewModel) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -66,10 +26,12 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
               mainAxisSpacing: 2.0,
             ),
             itemCount: 64, // 8x8 = 64 celdas
-            itemBuilder: (context, index) {
+            itemBuilder: (context, index) {              
+              final currentCell = viewModel.cells[index];
+
               return MineCell(
-                cell: _cells[index], 
-                onTap: () => _onCellTapped(index), 
+                cell: currentCell, 
+                onTap: () => viewModel.revealCell(index), 
               );// Cada celda es un widget MineCell
             },
           ),
@@ -89,7 +51,7 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
     final String difficulty = args?['difficulty'] ?? 'Desconocida';
     final int gridSize = args?['gridSize'] ?? 8; // Útil para redimensionar el tablero más adelante
 
-
+    final viewModel = context.watch<GameViewModel>();
 
     return Scaffold(
       appBar: AppBar(title: const Text('Buscaminas'),
@@ -138,7 +100,7 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
             const Divider(height: 1),
             // Área de Juego
             Expanded( // Expande el tablero para llenar la pantalla
-              child: _gameBoard(),
+              child: _gameBoard(viewModel),
             ),
             SizedBox(height: 10), // Espacio inferior
             Center(

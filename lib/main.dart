@@ -3,7 +3,9 @@ import 'package:laboratorois/ui/screens/about.dart';
 import 'package:laboratorois/ui/screens/history_screen.dart';
 import 'package:laboratorois/ui/screens/menu_screen.dart';
 import 'package:laboratorois/ui/screens/minesweeper_screen.dart';
+import 'package:laboratorois/viewmodels/game_viewmodel.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 
 var logger = Logger();
 
@@ -39,10 +41,14 @@ class MyApp extends StatelessWidget {
       // Mapa centralizado de Rutas Nombradas
       routes: {
         '/menu': (context) => const MenuScreen(),
-        '/game': (context) => const MinesweeperScreen(),
+        '/game': (context) => ChangeNotifierProvider(
+          create: (context) => GameViewModel(),
+          child: MinesweeperScreen(), // Notar que ahora GameScreen vuelve a ser una constante
+         ),
         '/history': (context) => HistoryScreen(),
         '/about': (context) => const AboutScreen(),
       },
    );
  }
 }
+  
