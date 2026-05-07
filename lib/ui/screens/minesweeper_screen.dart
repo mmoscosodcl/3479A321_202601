@@ -1,13 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:laboratorois/models/cell_model.dart';
 import 'package:laboratorois/ui/screens/about.dart';
 import 'package:laboratorois/ui/screens/menu_screen.dart';
 import 'package:laboratorois/ui/widgets/mine_cell.dart';
+import 'package:logger/logger.dart';
 
-class MinesweeperScreen extends StatelessWidget {
+class MinesweeperScreen extends StatefulWidget {
  const MinesweeperScreen({Key? key}) : super(key: key);
 
-  
-  
+  @override
+  State<MinesweeperScreen> createState() => _MinesweeperScreenState();
+}
+
+class _MinesweeperScreenState extends State<MinesweeperScreen> {
+  late List<CellModel> _cells;
+  final logger = Logger();
+
+  @override
+  void initState() {
+    super.initState();
+    // 1. Inicializamos el estado del tablero
+    _cells = List.generate(64, (i) => CellModel(index: i));
+  }
+
+  // 2. Esta es la función que pasaremos al hijo (Prop Drilling)
+  void _onCellTapped(int index) {
+    setState(() {
+      _cells[index].isRevealed = true; // Actualizamos el dato
+    });
+  }
+
+
   Widget _gameBoard() {
     return Center(
       child: Padding(
@@ -23,7 +46,11 @@ class MinesweeperScreen extends StatelessWidget {
             ),
             itemCount: 64, // 8x8 = 64 celdas
             itemBuilder: (context, index) {
-              return MineCell(index: index); // Cada celda es un widget MineCell
+              
+              return MineCell(
+                cell: _cells[index], 
+                onTap: () => _onCellTapped(index), 
+              );// Cada celda es un widget MineCell
             },
           ),
         ),
@@ -33,6 +60,8 @@ class MinesweeperScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    logger.w('RECONSTRUYENDO LA PANTALLA');
 
     final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
 
