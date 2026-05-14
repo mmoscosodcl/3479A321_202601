@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:laboratorois/models/cell_model.dart';
+import 'package:laboratorois/services/storage_service.dart';
 import 'package:laboratorois/ui/screens/about.dart';
 import 'package:laboratorois/ui/screens/menu_screen.dart';
 import 'package:laboratorois/ui/widgets/mine_cell.dart';
@@ -52,6 +53,9 @@ class MinesweeperScreen extends StatelessWidget {
     final int gridSize = args?['gridSize'] ?? 8; // Útil para redimensionar el tablero más adelante
 
     final viewModel = context.watch<GameViewModel>();
+
+
+
 
     return Scaffold(
       appBar: AppBar(title: const Text('Buscaminas'),

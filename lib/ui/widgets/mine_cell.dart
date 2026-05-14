@@ -13,25 +13,25 @@ class MineCell extends StatelessWidget {
 
 
   Widget _buildCellContent() {
-    if (!cell.isRevealed) {
-      return const SizedBox.shrink();
-    }
+    if (!cell.isRevealed) return const SizedBox.shrink();
+    if (cell.isBomb) return Image.asset('assets/icons/deadline.png', width: 40);
 
-    if (cell.isBomb) {
-      return Image.asset(
-        'assets/icons/land-mine.png',
-        width: 40, // Ajustamos el tamaño para que no desborde
-        height: 40,
-        fit: BoxFit.contain,
-      );
+    // Si no hay minas adyacentes, mostramos vacío en lugar de "0"
+    if (cell.adjacentMines == 0) return const SizedBox.shrink();
+
+    // Colores clásicos del buscaminas
+    Color numberColor;
+    switch (cell.adjacentMines) {
+      case 1: numberColor = Colors.blue; break;
+      case 2: numberColor = Colors.green; break;
+      case 3: numberColor = Colors.red; break;
+      case 4: numberColor = Colors.purple; break;
+      default: numberColor = Colors.black;
     }
 
     return Text(
-      '${cell.index}',
-      style: const TextStyle(
-        fontWeight: FontWeight.bold,
-        color: Colors.blueGrey,
-      ),
+      '${cell.adjacentMines}',
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: numberColor),
     );
   }
 

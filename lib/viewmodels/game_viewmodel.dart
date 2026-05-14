@@ -28,8 +28,39 @@ class GameViewModel extends ChangeNotifier {
         bombsPlanted++;
       }
     }
+    _calculateAdjacentMines(); // Llamar a este método al final de _generateBoard()
   }
 
+  void _calculateAdjacentMines() {
+    int size = 8; // Tamaño del grid (ej. 8x8)
+    
+    for (int i = 0; i < _cells.length; i++) {
+      if (_cells[i].isBomb) continue; // Si es bomba, no calculamos
+
+      int row = i ~/ size; // Fila actual
+      int col = i % size;  // Columna actual
+      int count = 0;
+
+      // Iteramos sobre los 8 vecinos posibles (arriba, abajo, diagonales)
+      for (int r = -1; r <= 1; r++) {
+        for (int c = -1; c <= 1; c++) {
+          if (r == 0 && c == 0) continue; // Somos nosotros mismos
+
+          int newRow = row + r;
+          int newCol = col + c;
+
+          // Verificamos que el vecino esté dentro de los límites del tablero
+          if (newRow >= 0 && newRow < size && newCol >= 0 && newCol < size) {
+            int neighborIndex = (newRow * size) + newCol;
+            if (_cells[neighborIndex].isBomb) {
+              count++;
+            }
+          }
+        }
+      }
+      _cells[i].adjacentMines = count;
+    }
+  }
   void revealCell(int index) {
     if (_isGameOver || _cells[index].isRevealed) return;
 
