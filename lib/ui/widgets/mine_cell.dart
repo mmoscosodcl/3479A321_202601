@@ -11,6 +11,31 @@ class MineCell extends StatelessWidget {
     required this.onTap,
   }) : super(key: key);
 
+
+  Widget _buildCellContent() {
+    if (!cell.isRevealed) {
+      return const SizedBox.shrink();
+    }
+
+    if (cell.isBomb) {
+      return Image.asset(
+        'assets/icons/land-mine.png',
+        width: 40, // Ajustamos el tamaño para que no desborde
+        height: 40,
+        fit: BoxFit.contain,
+      );
+    }
+
+    return Text(
+      '${cell.index}',
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+        color: Colors.blueGrey,
+      ),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -20,16 +45,12 @@ class MineCell extends StatelessWidget {
       onTap: onTap, // Ejecuta la función pasada desde el padre
       child: Container(
         decoration: BoxDecoration(
-          color: cell.isRevealed ? Colors.white : Colors.grey[400],
+          color: cell.isRevealed ? (cell.isBomb ? Colors.red[100] : Colors.white) 
+            : Colors.grey[300],
           border: Border.all(color: theme.colorScheme.outline, width: 1.5),
         ),
         child: Center(    
-          child: cell.isRevealed ? Image.asset(
-            'assets/icons/land-mine.png',
-            width: 64,
-            height: 64,
-            fit: BoxFit.contain,
-          ) : const SizedBox.shrink(), // Si no está revelada, no muestra nada
+          child: _buildCellContent() // Si no está revelada, no muestra nada
         ),
       ),
     );
