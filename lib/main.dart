@@ -1,21 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:laboratorois/core/services/storage_services.dart';
 import 'package:laboratorois/ui/screens/about.dart';
 import 'package:laboratorois/ui/screens/history_screen.dart';
 import 'package:laboratorois/ui/screens/menu_screen.dart';
 import 'package:laboratorois/ui/screens/minesweeper_screen.dart';
+import 'package:laboratorois/ui/screens/settings_screen.dart';
 import 'package:laboratorois/viewmodels/game_viewmodel.dart';
+import 'package:laboratorois/viewmodels/setting_viewmodel.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
 var logger = Logger();
 
-void main() {
+void main() async {
 
   logger.d('Iniciando la aplicación de Buscaminas'); // Debug
   logger.i('Iniciando la aplicación de Buscaminas'); // Info
   logger.w('Iniciando la aplicación de Buscaminas'); // Warning
   //logger.e('Iniciando la aplicación de Buscaminas'); // Error
-  runApp(const MyApp());
+
+
+
+    WidgetsFlutterBinding.ensureInitialized(); 
+  
+  // Esperamos a que el disco duro esté listo
+  await StorageService.init(); 
+  
+  runApp(
+  MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => SettingsViewModel()),
+    ],
+    child: const MyApp(),
+  ),
+);
 }
 
 class MyApp extends StatelessWidget {
@@ -41,8 +59,9 @@ class MyApp extends StatelessWidget {
       // Mapa centralizado de Rutas Nombradas
       routes: {
         '/menu': (context) => const MenuScreen(),
+        '/settings': (context) => const SettingsScreen(),
         '/game': (context) => ChangeNotifierProvider(
-          create: (context) => GameViewModel(),
+          create: (context) => GameViewModel(gridSize: 8),
           child: MinesweeperScreen(), // Notar que ahora GameScreen vuelve a ser una constante
          ),
         '/history': (context) => HistoryScreen(),

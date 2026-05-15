@@ -52,6 +52,7 @@ class MinesweeperScreen extends StatelessWidget {
     final int gridSize = args?['gridSize'] ?? 8; // Útil para redimensionar el tablero más adelante
 
     final viewModel = context.watch<GameViewModel>();
+    var seconds = viewModel.seconds; // Obtenemos el tiempo transcurrido del ViewModel
 
     return Scaffold(
       appBar: AppBar(title: const Text('Buscaminas'),
@@ -89,9 +90,9 @@ class MinesweeperScreen extends StatelessWidget {
                   //Icon from assets
                   Image.asset('assets/icons/deadline.png', width: 30, height: 30),
                   SizedBox(width: 1),
-                  const Center(
-                    child: Text('349 segundos | Minas: 10 | Cuadros: 56', 
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  Center(
+                    child: Text('$seconds segundos', 
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                   ),
                 ],
