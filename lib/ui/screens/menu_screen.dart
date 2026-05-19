@@ -4,7 +4,7 @@ import 'package:laboratorois/viewmodels/setting_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class MenuScreen extends StatelessWidget {
-  const MenuScreen({Key? key}) : super(key: key);
+  const MenuScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

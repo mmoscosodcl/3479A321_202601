@@ -19,7 +19,7 @@ class GameViewModel extends ChangeNotifier {
   final int gridSize; 
  late int totalCells;
 
-  get seconds => secondsElapsed;
+  int get seconds => secondsElapsed;
 
   GameViewModel({required this.gridSize}) {
     totalCells = gridSize * gridSize; // Ej: 10x10 = 100 celdas

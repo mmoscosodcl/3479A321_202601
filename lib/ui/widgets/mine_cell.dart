@@ -6,10 +6,10 @@ class MineCell extends StatelessWidget {
   final VoidCallback onTap; // Recibe la función que debe ejecutar al ser tocada
 
   const MineCell({
-    Key? key, 
+    super.key, 
     required this.cell,
     required this.onTap,
-  }) : super(key: key);
+  });
 
 
   Widget _buildCellContent() {

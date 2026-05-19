@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:laboratorois/models/cell_model.dart';
-import 'package:laboratorois/ui/screens/about.dart';
-import 'package:laboratorois/ui/screens/menu_screen.dart';
 import 'package:laboratorois/ui/widgets/mine_cell.dart';
 import 'package:laboratorois/viewmodels/game_viewmodel.dart';
 import 'package:logger/logger.dart';
